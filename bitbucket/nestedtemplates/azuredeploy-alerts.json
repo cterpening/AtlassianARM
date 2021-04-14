@@ -175,7 +175,10 @@
                     "frequencyInMinutes": "5",
                     "timeWindowInMinutes": "10"
                 }
-            }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Insights/actionGroups', variables('supportTeam').name)]"
+            ]
         },
         {
             "type": "Microsoft.Insights/scheduledQueryRules",
@@ -209,7 +212,10 @@
                     "frequencyInMinutes": "5",
                     "timeWindowInMinutes": "10"
                 }
-            }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Insights/actionGroups', variables('supportTeam').name)]"
+            ]
         },
         {
             "type": "Microsoft.Insights/scheduledQueryRules",
@@ -243,7 +249,10 @@
                     "frequencyInMinutes": "5",
                     "timeWindowInMinutes": "60"
                 }
-            }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Insights/actionGroups', variables('supportTeam').name)]"
+            ]
         },
         {
             "type": "Microsoft.Insights/scheduledQueryRules",
@@ -277,7 +286,10 @@
                     "frequencyInMinutes": "5",
                     "timeWindowInMinutes": "60"
                 }
-            }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Insights/actionGroups', variables('supportTeam').name)]"
+            ]
         },
         {
             "type": "Microsoft.Insights/metricAlerts",
@@ -313,7 +325,10 @@
                         "actionGroupId": "[resourceId('Microsoft.Insights/actionGroups', variables('supportTeam').name)]"
                     }
                 ]
-            }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Insights/actionGroups', variables('supportTeam').name)]"
+            ]
         },
         {
             "comments": "Disabled for now - need Standard ES LB for metrics instead of configured basic one atm. Reason ES LB remains basic is because you lose internet copnnectivity (to download template scripts) when plkaced behinf internal Standard LB.",
@@ -351,7 +366,10 @@
                         "actionGroupId": "[resourceId('Microsoft.Insights/actionGroups', variables('supportTeam').name)]"
                     }
                 ]
-            }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Insights/actionGroups', variables('supportTeam').name)]"
+            ]
         },
         {
             "type": "Microsoft.Insights/metricAlerts",
