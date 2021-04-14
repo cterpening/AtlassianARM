@@ -67,8 +67,8 @@ function download_installer {
       error "Could not get latest info installer description from ${SOFTWARE_VERSION_URL}"
     fi
 
-    LATEST_VERSION=$(echo ${LATEST_INFO} | jq '.[] | select(.platform == "Unix") |  select(.zipUrl|test("x64")) | .version' | sed 's/"//g' | sort -nr | head -n1)
-    LATEST_SOFTWARE_VERSION_URL=$(echo ${LATEST_INFO} | jq '.[] | select(.platform == "Unix") |  select(.zipUrl|test("x64")) | .zipUrl' | sed 's/"//g' | sort -nr | head -n1)
+    LATEST_VERSION=$(echo ${LATEST_INFO} | jq '.[] | select(.platform == "Unix") |  select(.zipUrl|test("x64")) | .version' | sed 's/"//g' | sort -Vr | head -n1)
+    LATEST_SOFTWARE_VERSION_URL=$(echo ${LATEST_INFO} | jq '.[] | select(.platform == "Unix") |  select(.zipUrl|test("x64")) | .zipUrl' | sed 's/"//g' | sort -Vr | head -n1)
     log "Latest jira info: $LATEST_VERSION and download URL: $LATEST_SOFTWARE_VERSION_URL"
   fi
   
