@@ -1,6 +1,7 @@
 import re
 from os import environ
 import sys
+from xml.sax.saxutils import escape
 
 
 def get_parameters(env_variables):
@@ -19,7 +20,7 @@ def process_line(pattern, line, parameters):
   for parameter in matches:
     substitution = parameters.get(parameter, None)
     if substitution:
-      line = line.replace('{{%s}}' % parameter, substitution)
+      line = line.replace('{{%s}}' % parameter, escape(substitution))
 
   return line
 
