@@ -673,7 +673,7 @@
         {
             "comments": "Storage account name must be between 3 and 24 characters in length and use numbers and lower-case letters only",
             "type": "Microsoft.Storage/storageAccounts",
-            "apiVersion": "2019-04-01",
+            "apiVersion": "2020-08-01-preview",
             "name": "[variables('storage').name]",
             "location": "[parameters('location')]",
             "sku": {

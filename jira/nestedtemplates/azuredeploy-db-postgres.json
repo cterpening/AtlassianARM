@@ -130,7 +130,7 @@
         "family": "[variables('postgresql').database.family]",
         "capacity": "[variables('postgresql').database.capacity]"
       },
-      "apiVersion": "2017-12-01-preview",
+      "apiVersion": "2017-12-01",
       "properties": {
         "storageProfile": {
           "storageMB": "[variables('postgresql').database.storage]",
