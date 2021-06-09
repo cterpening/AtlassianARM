@@ -22,6 +22,9 @@
         },
         "jiraAdminUserPassword": {
             "value": "admin"
+        },
+        "enableAnalytics": {
+            "value": false 
         }
     }
 }
