@@ -25,6 +25,9 @@
                 },
                 "bbsNodeCount": {
                         "value": 2
+                },
+                "enableAnalytics": {
+                        "value": false
                 }
         }
 }
