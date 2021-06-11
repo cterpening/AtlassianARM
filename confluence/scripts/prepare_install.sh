@@ -624,8 +624,7 @@ function configure_cluster {
   log "Checking all possible ips for existing nodes: ${_all_possible_nodes_ips}"
   declare -a _all_active_ips=($(for ip in ${_all_possible_cluster_ips}; do [[ `curl -o /dev/null -w "%{http_code}" --connect-timeout 1 --silent "http://${ip}:8080/status"` == 200 ]] && echo "${ip}" ; done))
   log "Found the following active nodes: [${_all_active_ips[@]}]"
-  #local expected_node_count=$((${ATL_CLUSTER_SIZE:-0} - ${!_all_active_ips[@]:-0}))
-  local expected_node_count=$((${ATL_CLUSTER_SIZE:-0} - ${#_all_active_ips[@]}))
+  local expected_node_count=$((${ATL_CLUSTER_SIZE:-0} - ${!_all_active_ips[@]:-0}))
   if [ ${expected_node_count} -le 0 ] ; then
     error "error more nodes are running than expected! expected_node_count=${expected_node_count} vs ATL_CLUSTER_SIZE=${ATL_CLUSTER_SIZE} : ${_all_active_ips[@]}"
   else
