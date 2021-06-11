@@ -10,8 +10,8 @@ function ensure_atlhome {
 }
 
 function ensure_prerequisites {
-    
     IS_REDHAT=$(cat /etc/os-release | egrep '^ID' | grep rhel)
+    update_rhel_client_cert
     install_pacapt
     install_redhat_epel_if_needed
     install_core_dependencies
@@ -690,6 +690,13 @@ function uninstall_bbs {
     rm /lib/systemd/system/bitbucket.service
 
     userdel ${BBS_USER}
+}
+
+function update_rhel_client_cert {
+  if [[ -n ${IS_REDHAT} ]]
+  then
+    yum update -y --disablerepo='*' --enablerepo='*microsoft*'
+  fi
 }
 
 function install_pacapt {
