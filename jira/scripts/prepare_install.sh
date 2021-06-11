@@ -83,6 +83,11 @@ function download_installer {
   fi
 }
 
+function update_rhel_client_cert {
+  yum update -y --disablerepo='*' --enablerepo='*microsoft*'
+}
+
+
 function install_pacapt {
   wget -O /usr/local/bin/pacapt https://github.com/icy/pacapt/raw/ng/pacapt
   sudo chmod 755 /usr/local/bin/pacapt
@@ -770,6 +775,7 @@ do
 done
 
 IS_REDHAT=$(cat /etc/os-release | egrep '^ID' | grep rhel)
+update_rhel_client_cert
 install_pacapt
 install_redhat_epel_if_needed
 install_core_dependencies
