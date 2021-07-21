@@ -1,6 +1,6 @@
 # Deployment customizations
 
-The [Jira Software](jira/mainTemplate.json), [Jira Service Desk](servicedesk/mainTemplate.json), and [Confluence](confluence/mainTemplate.json) templates in this repository provide common parameters for customizing your deployment.
+The [Jira Software](jira/mainTemplate.json), [Jira Service Desk](servicedesk/mainTemplate.json), [Confluence](confluence/mainTemplate.json), and [Crowd](crowd/mainTemplate.json) templates in this repository provide common parameters for customizing your deployment.
 
 ## Basic customizations
 
@@ -128,3 +128,178 @@ The following snippets demonstrate how to target some pre-release versions:
         }
     }
 ```
+### Crowd - Bring Your Own Database
+For customers whom may be migrating their entire deployment (servers + database) to Azure to take advantage of the cloud, we provide the ability for customers to specify an existing database to use, as opposed to creating a new database deployment.
+
+The process of exporting an existing database to Azure is out of the scope of this document. The following information assumes the following:
+
+- You have created the resource group which Crowd will be deployed to.
+- Within the resource group, you have a database (either Postgres or SQL Server).
+- The database is located within the same region as the resource group.
+- You have the admin credentials to the database.
+
+**Azure SQL Database**
+
+The following template can be used for Azure SQL deployments: 
+
+```
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "_artifactsLocation": {
+        "value": ""
+      },
+      "_artifactsLocationSasToken": {
+        "value": ""
+      },
+      "location": {
+        "value": "northeurope"
+      },
+      "isMarketplaceDeployment": {
+        "value": false
+      },
+      "crowdVersion": {
+        "value": "4.0.0"
+      },
+      "crowdClusterSize": {
+        "value": "trial"
+      },
+      "clusterVmSize": {
+        "value": "Standard_DS2_v2"
+      },
+      "dbCreateNew": {
+        "value": false
+      },
+      "dbUsername": {
+        "value": ""
+      },
+      "dbPassword": {
+        "value": ""
+      },
+      "dbDatabase": {
+        "value": ""
+      },
+      "dbHost": {
+        "value": ""
+      },
+      "dbPort": {
+        "value": "1433"
+      },
+      "dbType": {
+        "value": "Azure SQL DB"
+      },
+      "dbTier": {
+        "value": "Standard"
+      },
+      "sshKey": {
+        "value": ""
+      },
+      "sshUserName": {
+        "value": ""
+      },
+      "enableEmailAlerts": {
+        "value": true
+      },
+      "enableApplicationInsights": {
+        "value": true
+      },
+      "enableAnalytics": {
+        "value": true
+      },
+      "workspaceSku": {
+        "value": ""
+      }
+    }
+  }
+```
+
+Particular attention should be made to the dbTier property; due to the fact that newer Azure SQL SKU’s do not support a number of metrics designed to measure DTU consumption. The following tiers are currently supported:
+
+- Basic - Legacy SKU
+- Standard - Legacy SKU
+- Premium - Legacy SKU
+- GeneralPurpose - Newer SKU, used this if you selected one of the vCore options when creating the database.
+- BusinessCritical - Newer SKU, used this if you selected one of the vCore options when creating the database.
+
+To execute the deployment using a parameters file is simply a matter of passing a flag and the location of the parameters file to the command given above.
+
+```
+az group deployment create --template-file <template path> --parameters <path to parameters file>  --resource-group <resource group name>
+```
+This will cause the Azure Resouce Manager to begin deployment with the parameters specified in the files.
+
+**Azure Postgres Database**
+
+The following template can be used for Postgres deployments: 
+
+```
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "_artifactsLocation": {
+        "value": ""
+      },
+      "_artifactsLocationSasToken": {
+        "value": ""
+      },
+      "location": {
+        "value": "northeurope"
+      },
+      "isMarketplaceDeployment": {
+        "value": false
+      },
+      "crowdVersion": {
+        "value": "4.0.0"
+      },
+      "crowdClusterSize": {
+        "value": "trial"
+      },
+      "clusterVmSize": {
+        "value": "Standard_DS2_v2"
+      },
+      "dbCreateNew": {
+        "value": false
+      },
+      "dbUsername": {
+        "value": ""
+      },
+      "dbPassword": {
+        "value": ""
+      },
+      "dbDatabase": {
+        "value": ""
+      },
+      "dbHost": {
+        "value": ""
+      },
+      "dbPort": {
+        "value": "5432"
+      },
+      "dbType": {
+        "value": "Azure DB for PostgreSQL"
+      },
+      "sshKey": {
+        "value": ""
+      },
+      "sshUserName": {
+        "value": ""
+      },
+      "enableEmailAlerts": {
+        "value": true
+      },
+      "enableApplicationInsights": {
+        "value": true
+      },
+      "enableAnalytics": {
+        "value": true
+      },
+      "workspaceSku": {
+        "value": "PerGB2018"
+      }
+    }
+  }
+```
+
+This will cause the Azure Resouce Manager to begin deployment with the parameters specified in the files.

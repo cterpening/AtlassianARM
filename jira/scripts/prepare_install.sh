@@ -54,39 +54,39 @@ function preserve_installer {
 }
 
 function download_installer {
-
-  local jira_version=${ATL_JIRA_PRODUCT_VERSION}
-  echo "${ATL_JIRA_PRODUCT_VERSION}" > version
-  atl_log download_installer "Going to use ${ATL_JIRA_PRODUCT} with version: ${ATL_JIRA_PRODUCT_VERSION}"
-
-  if [[ ${ATL_JIRA_PRODUCT_VERSION} == 'latest' ]]
+  local BASE_URL=https://my.atlassian.com/download/feeds/current
+  
+  # ATL_JIRA_PRODUCT can only either be "jira-software" or "servicedesk"
+  [ ${ATL_JIRA_PRODUCT} = 'jira-software' ] && SOFTWARE_VERSION_URL="${BASE_URL}/jira-software.json" || SOFTWARE_VERSION_URL="${BASE_URL}/jira-servicedesk.json"
+  
+ if [ ! -n "${ATL_JIRA_CUSTOM_DOWNLOAD_URL}" ]
   then
-    # Get latest version from the special /latest url.
-    local jira_version_file_url="${ATL_JIRA_RELEASES_BASE_URL}/${ATL_JIRA_PRODUCT}/latest"
-    atl_log download_installer "Downloading installer description from ${jira_version_file_url}"
-
-    if ! curl -L -f --silent "${jira_version_file_url}" \
-       -o "version" 2>&1
-    then
-      atl_log download_installer "Could not download installer description from ${jira_version_file_url}"
-      exit 1
+    log "Will use version: ${ATL_JIRA_PRODUCT_VERSION} but first retrieving latest jira version info from Atlassian..."
+    LATEST_INFO=$(curl -L -f --silent ${SOFTWARE_VERSION_URL} | sed 's/^downloads(//g' | sed 's/)$//g')
+    if [ "$?" -ne "0" ]; then
+      error "Could not get latest info installer description from ${SOFTWARE_VERSION_URL}"
     fi
 
-    local jira_version=$(cat version)
+    LATEST_VERSION=$(echo ${LATEST_INFO} | jq '.[] | select(.platform == "Unix") |  select(.zipUrl|test("x64")) | .version' | sed 's/"//g' | sort -Vr | head -n1)
+    LATEST_SOFTWARE_VERSION_URL=$(echo ${LATEST_INFO} | jq '.[] | select(.platform == "Unix") |  select(.zipUrl|test("x64")) | .zipUrl' | sed 's/"//g' | sort -Vr | head -n1)
+    log "Latest jira info: $LATEST_VERSION and download URL: $LATEST_SOFTWARE_VERSION_URL"
   fi
   
+  [ ${ATL_JIRA_PRODUCT_VERSION} = 'latest' ] &&  echo -n "${LATEST_VERSION}" > version || echo -n "${ATL_JIRA_PRODUCT_VERSION}" > version
+  local jira_version=$(cat version)
+  [ -n "${ATL_JIRA_CUSTOM_DOWNLOAD_URL}" ] && local jira_installer_url="${ATL_JIRA_CUSTOM_DOWNLOAD_URL}/atlassian-jira-software-${ATL_JIRA_PRODUCT_VERSION}-x64.bin"  || local jira_installer_url=$(echo ${LATEST_SOFTWARE_VERSION_URL} | sed "s/${LATEST_VERSION}/${jira_version}/g")
+  log "Downloading ${ATL_JIRA_PRODUCT} installer from ${jira_installer_url}"
 
-  local jira_installer="atlassian-${ATL_JIRA_PRODUCT}-${jira_version}-x64.bin"
-  [ -n "${ATL_JIRA_CUSTOM_DOWNLOAD_URL}" ] && local jira_installer_url="${ATL_JIRA_CUSTOM_DOWNLOAD_URL}/${jira_installer}" || local jira_installer_url="${ATL_JIRA_RELEASES_BASE_URL}/${ATL_JIRA_PRODUCT}/${jira_installer}"
-  atl_log download_installer "Downloading ${ATL_JIRA_PRODUCT} installer from ${jira_installer_url}"
-
-  if ! curl -L -f --silent "${jira_installer_url}" \
-       -o "installer" 2>&1
+  if ! curl -L -f --silent "${jira_installer_url}" -o "installer" 2>&1
   then
-    atl_log download_installer "Could not download ${ATL_JIRA_PRODUCT} installer from ${jira_installer_url}"
-    exit 1
+    error "Could not download ${ATL_JIRA_PRODUCT} installer from ${jira_installer_url}"
   fi
 }
+
+function update_rhel_client_cert {
+  yum update -y --disablerepo='*' --enablerepo='*microsoft*'
+}
+
 
 function install_pacapt {
   wget -O /usr/local/bin/pacapt https://github.com/icy/pacapt/raw/ng/pacapt
@@ -775,6 +775,7 @@ do
 done
 
 IS_REDHAT=$(cat /etc/os-release | egrep '^ID' | grep rhel)
+update_rhel_client_cert
 install_pacapt
 install_redhat_epel_if_needed
 install_core_dependencies

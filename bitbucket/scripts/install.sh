@@ -10,8 +10,8 @@ function ensure_atlhome {
 }
 
 function ensure_prerequisites {
-    
     IS_REDHAT=$(cat /etc/os-release | egrep '^ID' | grep rhel)
+    update_rhel_client_cert
     install_pacapt
     install_redhat_epel_if_needed
     install_core_dependencies
@@ -320,8 +320,8 @@ function bbs_download_installer {
         error "Could not get latest info installer description from https://my.atlassian.com/download/feeds/current/stash.json"
         fi
 
-        LATEST_VERSION=$(echo ${LATEST_INFO} | jq '.[] | select(.platform == "Unix") |  select(.zipUrl|test("x64")) | .version' | sed 's/"//g' | sort -nr | head -n1)
-        LATEST_VERSION_URL=$(echo ${LATEST_INFO} | jq '.[] | select(.platform == "Unix") |  select(.zipUrl|test("x64")) | .zipUrl' | sed 's/"//g' | sort -nr | head -n1)
+        LATEST_VERSION=$(echo ${LATEST_INFO} | jq '.[] | select(.platform == "Unix") |  select(.zipUrl|test("x64")) | .version' | sed 's/"//g' | sort -Vr | head -n1)
+        LATEST_VERSION_URL=$(echo ${LATEST_INFO} | jq '.[] | select(.platform == "Unix") |  select(.zipUrl|test("x64")) | .zipUrl' | sed 's/"//g' | sort -Vr | head -n1)
         log "Latest bitbucket info: $LATEST_VERSION and download URL: $LATEST_VERSION_URL"
     fi
 
@@ -690,6 +690,13 @@ function uninstall_bbs {
     rm /lib/systemd/system/bitbucket.service
 
     userdel ${BBS_USER}
+}
+
+function update_rhel_client_cert {
+  if [[ -n ${IS_REDHAT} ]]
+  then
+    yum update -y --disablerepo='*' --enablerepo='*microsoft*'
+  fi
 }
 
 function install_pacapt {

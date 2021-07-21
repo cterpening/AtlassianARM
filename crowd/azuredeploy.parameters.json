@@ -10,6 +10,15 @@
         },
         "sshUserName": {
             "value": "crowdadmin"
+        },
+        "enableEmailAlerts": {
+            "value": false
+        },
+        "enableApplicationInsights": {
+            "value": false
+        },
+        "enableAnalytics": {
+            "value": false
         }
     }
 }

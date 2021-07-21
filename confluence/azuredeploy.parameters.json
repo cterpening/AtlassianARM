@@ -13,6 +13,9 @@
         },
         "confAdminUserPassword": {
             "value": "admin"
+        },
+        "enableAnalytics": {
+            "value": false
         }
     }
 }
