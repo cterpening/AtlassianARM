@@ -76,7 +76,6 @@ CATALINA_OPTS="-Xmx{{CONFLUENCE_MEMORY_MAX}} ${CATALINA_OPTS}"
 CATALINA_OPTS="-Djava.awt.headless=true ${CATALINA_OPTS}"
 CATALINA_OPTS="-Datlassian.plugins.enable.wait=300 ${CATALINA_OPTS}"
 CATALINA_OPTS="-Dsynchrony.enable.xhr.fallback=true ${CATALINA_OPTS}"
-CATALINA_OPTS="-Dhazelcast.dynamicconfig.ignore.conflicts=true ${CATALINA_OPTS}"
 CATALINA_OPTS="-Dorg.apache.tomcat.websocket.DEFAULT_BUFFER_SIZE=32768 ${CATALINA_OPTS}"
 CATALINA_OPTS="-Djava.locale.providers=JRE,SPI,CLDR ${CATALINA_OPTS}"
 
