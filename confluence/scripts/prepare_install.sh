@@ -618,6 +618,10 @@ function download_appinsights_jars {
   done
 }
 
+# Currently Confluence doesn't have hazelcast-azure plugin therefore the autodiscovery mechanism doesn't work.
+# Clustering is implemented with static IPs and the cluster size is static. This means that the cluster size
+# cannot be changed after the cluster creation. If the cluster is scaled manually via Azure UI, the new instances will
+# come up but won't join the Confluence DC cluster.
 function configure_cluster {
   local _all_possible_cluster_ips=`for n in {4..30}  ; do echo "10.0.2.${n}" ; done | tr '\n' ' ' | sed 's/ $//'`
   local _all_possible_nodes_ips=`echo "${_all_possible_cluster_ips}"`
