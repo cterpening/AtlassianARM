@@ -33,7 +33,7 @@
                             "regex": "latest|^([7,8,9]\\.[0-9]{1,2}\\.[0-9]{1,2})$",
                             "validationMessage": "You must specify a version."
                         },
-                        "defaultValue": "8.5.0"
+                        "defaultValue": "8.13.0"
                     },
                     {
                         "name": "adminfullname",
