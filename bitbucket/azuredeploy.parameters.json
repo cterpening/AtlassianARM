@@ -27,7 +27,7 @@
                         "value": 2
                 },
                 "enableAnalytics": {
-                        "value": false
+                        "value": true
                 }
         }
 }
