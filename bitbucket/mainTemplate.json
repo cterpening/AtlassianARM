@@ -619,6 +619,19 @@
         "dbServerName": "[concat(variables('namespace'), if(equals(parameters('dbType'),'Azure SQL DB'),'sqlserver','postgres'), uniqueString(resourceGroup().id))]"
     },
     "resources": [
+        { 
+            "apiVersion": "2020-06-01",
+            "name": "pid-32e25e68-2837-4701-88f0-edfe0e996cfd-partnercenter",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "resources": []
+                }
+            }
+        },
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-09-01",
