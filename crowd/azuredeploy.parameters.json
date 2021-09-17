@@ -12,13 +12,13 @@
             "value": "crowdadmin"
         },
         "enableEmailAlerts": {
-            "value": false
+            "value": true
         },
         "enableApplicationInsights": {
-            "value": false
+            "value": true
         },
         "enableAnalytics": {
-            "value": false
+            "value": true
         }
     }
 }

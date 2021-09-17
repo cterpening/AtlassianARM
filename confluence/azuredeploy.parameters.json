@@ -15,7 +15,7 @@
             "value": "admin"
         },
         "enableAnalytics": {
-            "value": false
+            "value": true
         }
     }
 }
