@@ -16,6 +16,9 @@
         },
         "enableAnalytics": {
             "value": true
+        },
+        "workspaceSku": {
+            "value": "PerGB2018"
         }
     }
 }
