@@ -21,7 +21,7 @@
             "value": "PerGB2018"
         },
         "confluenceVersion": {
-            "value": "7.17.0"
+            "value": "7.16.3"
         }
     }
 }
