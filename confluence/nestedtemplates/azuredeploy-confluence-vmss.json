@@ -217,6 +217,12 @@
                 "description": "The Confluence software product version to install. By default the deployment will download and use the latest version published."
             }
         },
+        "confluenceLicense": {
+            "type": "string",
+            "metadata": {
+                "description": "Confluence license key."
+            }
+        },
         "customDownloadUrl": {
             "type": "string",
             "defaultValue": "",
@@ -669,7 +675,7 @@
                 },
                 {
                     "name": "CONFLUENCE_LICENSE",
-                    "value": "[variables('confluence').license]"
+                    "value": "[parameters('confluenceLicense')]"
                 },
                 {
                     "name": "APPLICATION_TITLE",
