@@ -19,9 +19,6 @@
         },
         "workspaceSku": {
             "value": "PerGB2018"
-        },
-        "confluenceVersion": {
-            "value": "7.16.3"
         }
     }
 }
