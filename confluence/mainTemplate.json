@@ -38,6 +38,12 @@
                 "description": "The Confluence software product version to install. You can also specify 'latest' to download the latest version available. If using with customDownloadUrl you have to specify the correct version."
             }
         },
+        "confluenceLicense": {
+            "type": "string",
+            "metadata": {
+                "description": "The Confluence license key."
+            }
+        },
         "customDownloadUrl": {
             "type": "string",
             "defaultValue": "",
@@ -680,6 +686,9 @@
                     },
                     "confluenceVersion": {
                         "value": "[parameters('confluenceVersion')]"
+                    },
+                    "confluenceLicense": {
+                        "value": "[parameters('confluenceLicense')]"
                     },
                     "customDownloadUrl": {
                         "value": "[parameters('customDownloadUrl')]"

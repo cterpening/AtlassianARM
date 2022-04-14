@@ -36,6 +36,16 @@
                         "defaultValue": "7.13.0"
                     },
                     {
+                        "name": "confluenceLicense",
+                        "label": "Confluence License",
+                        "type": "Microsoft.Common.TextBox",
+                        "toolTip": "Specify a Confluence license key.",
+                        "constraints": {
+                            "required": true,
+                            "validationMessage": "You must specify a Confluence license key."
+                        }
+                    },
+                    {
                         "name": "adminfullname",
                         "label": "Admin Full Name",
                         "type": "Microsoft.Common.TextBox",
@@ -955,6 +965,7 @@
             "location": "[location()]",
             "isMarketplaceDeployment": true,
             "confluenceVersion": "[steps('administrator').confluenceVersion]",
+            "confluenceLicense": "[steps('administrator').confluenceLicense]",
             "confAdminUserName": "[steps('administrator').adminUsername]",
             "confAdminUserPassword": "[steps('administrator').adminPassword]",
             "confAdminUserEmail": "[steps('administrator').adminEmail]",
@@ -981,3 +992,4 @@
         }
     }
 }
+
