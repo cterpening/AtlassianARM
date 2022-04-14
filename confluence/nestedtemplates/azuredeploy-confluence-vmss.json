@@ -398,8 +398,7 @@
                         "size": "[if(greater(div(parameters('clusterVmDiskSize'), parameters('clusterVmDiskCount')), 1020), 1020, div(parameters('clusterVmDiskSize'), parameters('clusterVmDiskCount')))]"
                     }
                 }
-            },
-            "license": "AAABlA0ODAoPeNp1kU9vozAQxe/+FEh72VVFhYFu0kiWSgxpouVPWppmD7k4ZGjcEpO1DW2+fQ006u5KvXlmrPfm/ebbGnZWcJQW9ix8PXG8ieNaNHywXMd10QucHkEqXguCfzrOyBl7Hka0FpoVOmUHIDvJ9H5bC7hhumJKcSYui/qAilqUl+YTb4Fo2QBaNrLYMwUh00A6cdvxbeyjmBcgFERvRy5Pfw2vuuGHU5QwXn1plYNsQS5CMl1kvu3PYs8eRdOpfevkGFWD/JypPUnoK50FY5aU+SqZvsX3bXs72/1Zw6s33/rLq2B/l2txMf+tMjq7llw/F88vSzm6+0XXq2BDNmSIZbZkFIQGOUTLm60qJD/qjlPfMfuasWCi+CJYr5M2hy3IrFwpw5jYeOjmmslOumSVgjMeky5ehHmU2jEeuyPsuRiZivzbyeQTE1yxfpE0SyNEJfTV/9R7pw/th9MR+lvSLEmie7oI4jO28/FdFMJnRHOVsmrAhLO+dyysAcaPzcSKWlY1vSP6fA5M3gF2+MuiMCwCFE4PNqlu629XLR0BqwGzkqvvrVvlAhQj7YKDQlJgtS8uNfTuZfi0qOw7qQ==X02jj"
+            }
         },
         "lookup": {
             "sqlDbTierToMaxConnections": {
