@@ -536,7 +536,7 @@
         {
             "name": "[variables('storage').name]",
             "type": "Microsoft.Storage/storageAccounts",
-            "apiVersion": "2019-06-01",
+            "apiVersion": "2021-09-01",
             "condition": "[not(parameters('enablePremiumFiles'))]",
             "location": "[parameters('location')]",
             "sku": {
@@ -548,7 +548,7 @@
         {
             "name": "[variables('storage').diagnostics]",
             "type": "Microsoft.Storage/storageAccounts",
-            "apiVersion": "2019-06-01",
+            "apiVersion": "2021-09-01",
             "condition": "[parameters('enablePremiumFiles')]",
             "location": "[parameters('location')]",
             "sku": {
@@ -561,7 +561,7 @@
             "name": "[variables('storage').premiumName]",
             "type": "Microsoft.Storage/storageAccounts",
             "comments": "Only have this resource in this template because not allowed to return keys/secrets in output pararms from nested templates.",
-            "apiVersion": "2019-06-01",
+            "apiVersion": "2021-09-01",
             "condition": "[parameters('enablePremiumFiles')]",
             "location": "[parameters('location')]",
             "sku": {
@@ -594,7 +594,7 @@
         {
             "name": "[concat(if(parameters('enablePremiumFiles'), variables('storage').premiumName, variables('storage').name), '/default')]",
             "type": "Microsoft.Storage/storageAccounts/fileServices",
-            "apiVersion": "2019-06-01",
+            "apiVersion": "2021-09-01",
             "condition": "[parameters('enablePremiumFiles')]",
             "dependsOn": [
                 "[variables('storage').premiumName]"
@@ -606,7 +606,7 @@
         {
             "name": "[concat(if(parameters('enablePremiumFiles'), variables('storage').premiumName, variables('storage').name), '/default/', variables('storage').sharedHomeName)]",
             "type": "Microsoft.Storage/storageAccounts/fileServices/shares",
-            "apiVersion": "2019-06-01",
+            "apiVersion": "2021-09-01",
             "dependsOn": [
                 "[variables('storage').name]",
                 "[variables('storage').premiumName]"
@@ -617,7 +617,7 @@
         },
         {
             "name": "recoveryVaultTemplate",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2021-04-01",
             "type": "Microsoft.Resources/deployments",
             "condition": "[parameters('enablePremiumFiles')]",
             "properties": {
@@ -638,7 +638,7 @@
         },
         {
             "name": "sharedHomeBackupTemplate",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2021-04-01",
             "type": "Microsoft.Resources/deployments",
             // Can't create backup item from templates currently - see https://github.com/Azure/azure-quickstart-templates/issues/7184
             "condition": false,
@@ -669,7 +669,7 @@
             "type": "Microsoft.OperationalInsights/workspaces",
             "name": "[variables('workspace').name]",
             "condition": "[parameters('enableAnalytics')]",
-            "apiVersion": "2020-03-01-preview",
+            "apiVersion": "2021-06-01",
             "location": "[parameters('location')]",
             "properties": {
                 "sku": {
@@ -678,7 +678,7 @@
             },
             "resources": [
                 {
-                    "apiVersion": "2020-03-01-preview",
+                    "apiVersion": "2021-06-01",
                     "type": "dataSources",
                     "name": "ConfluenceLogs",
                     "condition": "[parameters('enableAnalytics')]",
@@ -726,7 +726,7 @@
                     }
                 },
                 {
-                    "apiVersion": "2020-03-01-preview",
+                    "apiVersion": "2021-06-01",
                     "type": "dataSources",
                     "name": "confLogCollection",
                     "condition": "[parameters('enableAnalytics')]",
@@ -741,7 +741,7 @@
             ]
         },
         {
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2021-04-01",
             "name": "sqlDbTemplate",
             "type": "Microsoft.Resources/deployments",
             "condition": "[and(parameters('dbCreateNew'), equals(parameters('dbType'), 'sqlserver'))]",
@@ -795,7 +795,7 @@
             }
         },
         {
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2021-04-01",
             "name": "postgresDbTemplate",
             "type": "Microsoft.Resources/deployments",
             "condition": "[and(parameters('dbCreateNew'), equals(parameters('dbType'), 'postgres'))]",
@@ -855,7 +855,7 @@
             }
         },
         {
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2021-04-01",
             "name": "byodbTemplate",
             "type": "Microsoft.Resources/deployments",
             "condition": "[not(parameters('dbCreateNew'))]",
@@ -910,7 +910,7 @@
             }
         },
         {
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2021-04-01",
             "name": "appGtwyTemplate",
             "type": "Microsoft.Resources/deployments",
             "dependsOn": [
@@ -964,7 +964,7 @@
             }
         },
         {
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2021-04-01",
             "name": "vmssTemplate",
             "type": "Microsoft.Resources/deployments",
             "dependsOn": [
@@ -1089,10 +1089,10 @@
                         "value": "[variables('storage').sharedHomeName]"
                     },
                     "storageAccessKey": {
-                        "value": "[if(parameters('enablePremiumFiles'), listKeys(resourceId('Microsoft.Storage/storageAccounts/', variables('storage').premiumName), '2017-06-01').keys[0].value, listKeys(resourceId('Microsoft.Storage/storageAccounts/', variables('storage').name), '2017-06-01').keys[0].value)]"
+                        "value": "[if(parameters('enablePremiumFiles'), listKeys(resourceId('Microsoft.Storage/storageAccounts/', variables('storage').premiumName), '2021-09-01').keys[0].value, listKeys(resourceId('Microsoft.Storage/storageAccounts/', variables('storage').name), '2021-09-01').keys[0].value)]"
                     },
                     "storageFilesEndpoint": {
-                        "value": "[if(parameters('enablePremiumFiles'), reference(resourceId('Microsoft.Storage/storageAccounts/', variables('storage').premiumName), '2017-06-01').primaryEndpoints.file, reference(resourceId('Microsoft.Storage/storageAccounts/', variables('storage').name), '2017-06-01').primaryEndpoints.file)]"
+                        "value": "[if(parameters('enablePremiumFiles'), reference(resourceId('Microsoft.Storage/storageAccounts/', variables('storage').premiumName), '2021-09-01').primaryEndpoints.file, reference(resourceId('Microsoft.Storage/storageAccounts/', variables('storage').name), '2021-09-01').primaryEndpoints.file)]"
                     },
                     "enableAcceleratedNetworking": {
                         "value": "[parameters('enableAcceleratedNetworking')]"
@@ -1101,10 +1101,10 @@
                         "value": "[if(parameters('enableAnalytics'), reference(variables('workspace').name).customerId, '')]"
                     },
                     "workspacePrimaryKey": {
-                        "value": "[if(parameters('enableAnalytics'), listKeys(resourceId('Microsoft.OperationalInsights/workspaces/', variables('workspace').name), '2017-04-26-preview').primarySharedKey, '')]"
+                        "value": "[if(parameters('enableAnalytics'), listKeys(resourceId('Microsoft.OperationalInsights/workspaces/', variables('workspace').name), '2021-06-01').primarySharedKey, '')]"
                     },
                     "workspaceSecondaryKey": {
-                        "value": "[if(parameters('enableAnalytics'), listKeys(resourceId('Microsoft.OperationalInsights/workspaces/', variables('workspace').name), '2017-04-26-preview').secondarySharedKey, '')]"
+                        "value": "[if(parameters('enableAnalytics'), listKeys(resourceId('Microsoft.OperationalInsights/workspaces/', variables('workspace').name), '2021-06-01').secondarySharedKey, '')]"
                     },
                     "clusterVmDiskSize" : {
                         "value": "[parameters('clusterVmDiskSize')]"
@@ -1124,7 +1124,7 @@
             }
         },
         {
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2021-04-01",
             "name": "appInsightsTemplate",
             "type": "Microsoft.Resources/deployments",
             "condition": "[parameters('enableApplicationInsights')]",
@@ -1146,7 +1146,7 @@
             }
         },
         {
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2021-04-01",
             "name": "analyticsTemplate",
             "type": "Microsoft.Resources/deployments",
             "condition": "[parameters('enableAnalytics')]",

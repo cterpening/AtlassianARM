@@ -42,6 +42,7 @@
                         "toolTip": "Specify a Confluence license key.",
                         "constraints": {
                             "required": true,
+                            "regex": "^(.*?)$",
                             "validationMessage": "You must specify a Confluence license key."
                         }
                     },
