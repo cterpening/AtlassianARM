@@ -601,7 +601,7 @@
             "type": "Microsoft.OperationalInsights/workspaces",
             "name": "[variables('workspace').name]",
             "condition": "[parameters('enableAnalytics')]",
-            "apiVersion": "2020-03-01-preview",
+            "apiVersion": "2020-08-01",
             "location": "[parameters('location')]",
             "properties": {
                 "sku": {
@@ -610,7 +610,7 @@
             },
             "resources": [
                 {
-                    "apiVersion": "2020-03-01-preview",
+                    "apiVersion": "2020-08-01",
                     "type": "dataSources",
                     "name": "CrowdLogs",
                     "condition": "[parameters('enableAnalytics')]",
@@ -658,7 +658,7 @@
                     }
                 },
                 {
-                    "apiVersion": "2020-03-01-preview",
+                    "apiVersion": "2020-08-01",
                     "type": "dataSources",
                     "name": "crowdLogCollection",
                     "condition": "[parameters('enableAnalytics')]",

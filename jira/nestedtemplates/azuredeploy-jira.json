@@ -573,7 +573,7 @@
                     }
                 },
                 {
-                    "apiVersion": "2020-03-01-preview",
+                    "apiVersion": "2020-08-01",
                     "type": "dataSources",
                     "name": "jiraLogCollection",
                     "condition": "[parameters('enableAnalytics')]",
@@ -788,7 +788,7 @@
             }
         },
         {
-            "apiVersion": "2020-05-01",
+            "apiVersion": "2022-01-01",
             "type": "Microsoft.Network/publicIPAddresses",
             "name": "[variables('gtwyIpName')]",
             "location": "[parameters('location')]",
@@ -986,10 +986,10 @@
                         "value": "[if(parameters('enableAnalytics'), reference(variables('workspace').name).customerId, '')]"
                     },
                     "workspacePrimaryKey": {
-                        "value": "[if(parameters('enableAnalytics'), listKeys(resourceId('Microsoft.OperationalInsights/workspaces/', variables('workspace').name), '2020-03-01-preview').primarySharedKey, '')]"
+                        "value": "[if(parameters('enableAnalytics'), listKeys(resourceId('Microsoft.OperationalInsights/workspaces/', variables('workspace').name), '2020-08-01').primarySharedKey, '')]"
                     },
                     "workspaceSecondaryKey": {
-                        "value": "[if(parameters('enableAnalytics'), listKeys(resourceId('Microsoft.OperationalInsights/workspaces/', variables('workspace').name), '2020-03-01-preview').secondarySharedKey, '')]"
+                        "value": "[if(parameters('enableAnalytics'), listKeys(resourceId('Microsoft.OperationalInsights/workspaces/', variables('workspace').name), '2020-08-01').secondarySharedKey, '')]"
                     },
                     "clusterVmDiskSize": {
                         "value": "[parameters('clusterVmDiskSize')]"

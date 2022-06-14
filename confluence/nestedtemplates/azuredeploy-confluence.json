@@ -678,7 +678,7 @@
             },
             "resources": [
                 {
-                    "apiVersion": "2020-03-01-preview",
+                    "apiVersion": "2020-08-01",
                     "type": "dataSources",
                     "name": "ConfluenceLogs",
                     "condition": "[parameters('enableAnalytics')]",
@@ -726,7 +726,7 @@
                     }
                 },
                 {
-                    "apiVersion": "2020-03-01-preview",
+                    "apiVersion": "2020-08-01",
                     "type": "dataSources",
                     "name": "confLogCollection",
                     "condition": "[parameters('enableAnalytics')]",
@@ -894,7 +894,7 @@
             }
         },
         {
-            "apiVersion": "2020-05-01",
+            "apiVersion": "2022-01-01",
             "type": "Microsoft.Network/publicIPAddresses",
             "name": "[variables('gtwyIpName')]",
             "location": "[parameters('location')]",

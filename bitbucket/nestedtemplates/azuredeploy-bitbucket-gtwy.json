@@ -150,7 +150,7 @@
     "resources": [
         {
             "type": "Microsoft.Network/applicationGateways",
-            "apiVersion": "2020-05-01",
+            "apiVersion": "2022-01-01",
             "name": "[concat(variables('namespace'), 'appgateway')]",
             "location": "[parameters('location')]",
             "condition": "[empty(parameters('sslPfxCertificatePassword'))]",
@@ -313,7 +313,7 @@
             "name": "[concat(variables('namespace'), 'appgateway-https')]",
             "type": "Microsoft.Network/applicationGateways",
             "condition": "[not(empty(parameters('sslPfxCertificatePassword')))]",
-            "apiVersion": "2020-05-01",
+            "apiVersion": "2022-01-01",
             "location": "[parameters('location')]",
             "properties": {
                 "sku": "[variables('applicationGateway').sku]",

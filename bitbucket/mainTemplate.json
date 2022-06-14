@@ -620,7 +620,7 @@
     },
     "resources": [
         { 
-            "apiVersion": "2020-06-01",
+            "apiVersion": "2021-04-01",
             "name": "pid-32e25e68-2837-4701-88f0-edfe0e996cfd-partnercenter",
             "type": "Microsoft.Resources/deployments",
             "properties": {

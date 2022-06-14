@@ -33,7 +33,7 @@
                             "regex": "latest|^(6\\.1[2-9]{1}\\.[0-9]{1,2}|[7,8,9]\\.[0-9]{1,2}\\.[0-9]{1,2})$",
                             "validationMessage": "You must specify a version >= 6.12.0"
                         },
-                        "defaultValue": "7.13.0"
+                        "defaultValue": "7.13.7"
                     },
                     {
                         "name": "confluenceLicense",

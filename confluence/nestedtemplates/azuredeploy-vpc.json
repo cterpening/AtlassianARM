@@ -97,7 +97,7 @@
     "resources": [
         {
             "type": "Microsoft.Network/networkSecurityGroups",
-            "apiVersion": "2020-05-01",
+            "apiVersion": "2022-01-01",
             "name": "[variables('appSubnet').nsg.name]",
             "location": "[parameters('location')]",
             "tags": "[variables('tags')]",
@@ -139,7 +139,7 @@
         },
         {
             "type": "Microsoft.Network/networkSecurityGroups",
-            "apiVersion": "2020-05-01",
+            "apiVersion": "2022-01-01",
             "name": "[variables('jumpbox').nsg.name]",
             "location": "[parameters('location')]",
             "tags": "[variables('tags')]",
@@ -167,7 +167,7 @@
         },
         {
             "type": "Microsoft.Network/publicIPAddresses",
-            "apiVersion": "2020-05-01",
+            "apiVersion": "2022-01-01",
             "name": "[variables('jumpbox').ip.name]",
             "location": "[parameters('location')]",
             "tags": "[variables('tags')]",
@@ -180,7 +180,7 @@
         },
         {
             "type": "Microsoft.Network/virtualNetworks",
-            "apiVersion": "2020-05-01",
+            "apiVersion": "2022-01-01",
             "name": "[variables('vnet').name]",
             "location": "[parameters('location')]",
             "tags": "[variables('tags')]",
@@ -231,7 +231,7 @@
         },
         {
             "type": "Microsoft.Network/networkInterfaces",
-            "apiVersion": "2020-05-01",
+            "apiVersion": "2022-01-01",
             "name": "[variables('jumpbox').nics.public]",
             "location": "[parameters('location')]",
             "tags": "[variables('tags')]",
