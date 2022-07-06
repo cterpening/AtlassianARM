@@ -77,7 +77,7 @@
             "type": "Microsoft.Sql/servers/virtualNetworkRules",
             "name": "[concat(variables('dbName'), '/', parameters('clusterDbAccessNetworkRule'))]",
             "condition": "[equals(parameters('dbType'), 'sqlserver')]",
-            "apiVersion": "2020-02-02-preview",
+            "apiVersion": "2021-11-01-preview",
             "properties": {
                 "virtualNetworkSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets/', parameters('vnetName'), parameters('appSubnetName'))]",
                 "ignoreMissingVnetServiceEndpoint": false
@@ -87,7 +87,7 @@
             "type": "Microsoft.DBforPostgreSQL/servers/virtualNetworkRules",
             "name": "[concat(variables('dbName'), '/', parameters('clusterDbAccessNetworkRule'))]",
             "condition": "[equals(parameters('dbType'), 'postgres')]",
-            "apiVersion": "2017-12-01-preview",
+            "apiVersion": "2017-12-01",
             "properties": {
                 "virtualNetworkSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets/', parameters('vnetName'), parameters('appSubnetName'))]",
                 "ignoreMissingVnetServiceEndpoint": false

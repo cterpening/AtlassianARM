@@ -556,7 +556,7 @@
     "resources": [
         {
             "type": "Microsoft.Compute/virtualMachines/extensions",
-            "apiVersion": "2019-12-01",
+            "apiVersion": "2022-03-01",
             "name": "[concat(parameters('jumpboxName'), '/provision-install-script')]",
             "condition": "[not(parameters('isMarketplaceDeployment'))]",
             "location": "[parameters('location')]",
@@ -582,7 +582,7 @@
             "dependsOn": [
                 "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('jumpboxName'), 'provision-install-script')]"
             ],
-            "apiVersion": "2019-12-01",
+            "apiVersion": "2022-03-01",
             "sku": {
                 "name": "[variables('crowd').cluster.vm.size]",
                 "tier": "[variables('crowd').cluster.tier]",

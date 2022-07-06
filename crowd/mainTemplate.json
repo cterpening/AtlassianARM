@@ -575,7 +575,7 @@
     "resources": [
         {
             "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2019-05-01",
+            "apiVersion": "2021-04-01",
             "name": "vpcTemplate",
             "properties": {
                 "mode": "Incremental",
@@ -604,7 +604,7 @@
         },
         {
             "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2019-05-01",
+            "apiVersion": "2021-04-01",
             "name": "crowdTemplate",
             "dependsOn": [
                 "vpcTemplate"
@@ -744,7 +744,7 @@
         },
         {
             "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2019-05-01",
+            "apiVersion": "2021-04-01",
             "name": "domainTemplate",
             "dependsOn": [
                 "crowdTemplate"
@@ -770,7 +770,7 @@
             }
         },
         {
-            "apiVersion": "2019-05-01",
+            "apiVersion": "2021-04-01",
             "name": "alertsTemplate",
             "type": "Microsoft.Resources/deployments",
             "condition": "[parameters('enableEmailAlerts')]",
