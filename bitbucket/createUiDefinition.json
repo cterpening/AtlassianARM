@@ -79,7 +79,7 @@
                         "constraints": {
                             "required": true,
                             "regex": "^.{12,16}$",  
-                            "validationMessage": "This password must be a minimum of 12 characters long."
+                            "validationMessage": "This password must be between 12 and 16 characters long."
                         }
                     }
                 ]
@@ -194,8 +194,8 @@
                         },
                         "constraints": {
                             "required": true,
-                            "regex": "^(?=.*[A-Z])(?=.*[!@#$%])(?=.*[0-9])(?=.*[a-z]).{12,16}$",
-                            "validationMessage": "This password must be between 12 and 16 characters long, and must contain at least one uppercase letter, one lowercase letter, one number (0-9), and one non-alphanumeric character (!, $, #, %, etc.)."
+                            "regex": "^(?=.*[A-Z])(?=.*[!@#$%*])(?=.*[0-9])(?=.*[a-z]).{12,16}$",
+                            "validationMessage": "This password must be between 12 and 16 characters long, and must contain at least one uppercase letter, one lowercase letter, one number (0-9), and one of the following non-alphanumeric character [!, @, #, $, %, *]."
                         }
                     }
                 ]
