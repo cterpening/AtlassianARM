@@ -258,7 +258,7 @@ function hydrate_shared_config {
   for template_file in ${template_files[@]};
   do
     output_file=`echo "${template_file}" | sed 's/\.template$//'`
-    cat ${template_file} | python hydrate_jira_config.py > ${output_file}
+    cat ${template_file} | python3 hydrate_jira_config.py > ${output_file}
     atl_log hdyrate_shared_config "Hydrated '${template_file}' into '${output_file}'"
   done
 }
@@ -292,7 +292,7 @@ function hydrate_db_dump {
   local template_file=$(ls -C1 *db.sql.template)
   local output_file=`echo "${template_file}" | sed 's/\.template$//'`
 
-  cat ${template_file} | python hydrate_jira_config.py > ${output_file}
+  cat ${template_file} | python3 hydrate_jira_config.py > ${output_file}
   log "Hydrated '${template_file}' into '${output_file}'"
 }
 

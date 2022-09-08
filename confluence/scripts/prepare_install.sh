@@ -278,7 +278,7 @@ function hydrate_shared_config {
   do
     output_file=`echo "${template_file}" | sed 's/\.template$//'`
     atl_log hydrate_shared_config "Start hydrating '${template_file}' into '${output_file}'"
-    cat ${template_file} | python hydrate_confluence_config.py > ${output_file}
+    cat ${template_file} | python3 hydrate_confluence_config.py > ${output_file}
     atl_log hydrate_shared_config "Hydrated '${template_file}' into '${output_file}'"
   done
 }
@@ -310,7 +310,7 @@ function hydrate_db_dump {
   local template_file=$(ls -C1 *_db.sql.template)
   local output_file=`echo "${template_file}" | sed 's/\.template$//'`
 
-  cat ${template_file} | python hydrate_confluence_config.py > ${output_file}
+  cat ${template_file} | python3 hydrate_confluence_config.py > ${output_file}
   log "Hydrated '${template_file}' into '${output_file}'"
 }
 
@@ -664,7 +664,7 @@ function configure_cluster {
     local template_file=${template_files[$config_file_idx]}
     local output_file=${template_destination[$config_file_idx]}
     log "Start hydrating '${template_file}' into '${output_file}'"
-    cat ${template_file} | python hydrate_confluence_config.py > ${output_file}
+    cat ${template_file} | python3 hydrate_confluence_config.py > ${output_file}
     log "Hydrated '${template_file}' into '${output_file}'"
   done
 
@@ -708,7 +708,7 @@ function configure_confluence {
     local output_file=${confluence_configs_dest[$config_file_idx]}
     if [ -f ${template_file} ] ; then
       log "Start hydrating '${template_file}' into '${output_file}'"
-      cat ${template_file} | python hydrate_confluence_config.py > ${output_file}
+      cat ${template_file} | python3 hydrate_confluence_config.py > ${output_file}
       log "Hydrated '${template_file}' into '${output_file}'"
     else
       error "${template_file} not found"
