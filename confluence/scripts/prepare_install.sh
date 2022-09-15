@@ -82,7 +82,10 @@ function download_installer {
 }
 
 function update_rhel_client_cert {
-  yum update -y --disablerepo='*' --enablerepo='*microsoft*'
+  if [[ -n ${IS_REDHAT} ]]
+  then
+    yum update -y --disablerepo='*' --enablerepo='*microsoft*'
+  fi
 }
 
 function install_pacapt {
