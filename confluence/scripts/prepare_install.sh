@@ -93,6 +93,18 @@ function install_pacapt {
   sudo chmod 755 /usr/local/bin/pacapt
 }
 
+function install_python3_if_needed {
+  if [[ -n ${IS_REDHAT} ]]
+  then
+    sudo yum install -y rh-python36
+    source /opt/rh/rh-python36/enable
+  fi
+  if [[ -n ${IS_CENTOS} ]]
+  then
+    sudo yum install -y python3
+  fi
+}
+
 function install_redhat_epel_if_needed {
   if [[ -n ${IS_REDHAT} ]]
   then
@@ -868,9 +880,11 @@ do
 done
 
 IS_REDHAT=$(cat /etc/os-release | egrep '^ID' | grep rhel)
+IS_CENTOS=$(cat /etc/os-release | egrep '^ID' | grep centos)
 update_rhel_client_cert
 install_pacapt
 install_redhat_epel_if_needed
+install_python3_if_needed
 install_core_dependencies
 
 #$1 is the storage key, $3 is the fqdn of the ip address, $4 is the fqdn of the database server
