@@ -84,13 +84,28 @@ function download_installer {
 }
 
 function update_rhel_client_cert {
-  yum update -y --disablerepo='*' --enablerepo='*microsoft*'
+  if [[ -n ${IS_REDHAT} ]]
+  then
+    yum update -y --disablerepo='*' --enablerepo='*microsoft*'
+  fi
 }
 
 
 function install_pacapt {
   wget -O /usr/local/bin/pacapt https://github.com/icy/pacapt/raw/ng/pacapt
   sudo chmod 755 /usr/local/bin/pacapt
+}
+
+function install_python3_if_needed {
+  if [[ -n ${IS_REDHAT} ]]
+  then
+    sudo yum install -y rh-python36
+    source /opt/rh/rh-python36/enable
+  fi
+  if [[ -n ${IS_CENTOS} ]]
+  then
+    sudo yum install -y python3
+  fi
 }
 
 function install_redhat_epel_if_needed {
@@ -775,9 +790,11 @@ do
 done
 
 IS_REDHAT=$(cat /etc/os-release | egrep '^ID' | grep rhel)
+IS_CENTOS=$(cat /etc/os-release | egrep '^ID' | grep centos)
 update_rhel_client_cert
 install_pacapt
 install_redhat_epel_if_needed
+install_python3_if_needed
 install_core_dependencies
 prepare_env $1 $3 $5
 source setenv.sh
