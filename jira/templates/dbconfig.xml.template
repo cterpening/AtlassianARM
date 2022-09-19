@@ -21,5 +21,6 @@
     <pool-remove-abandoned-timeout>300</pool-remove-abandoned-timeout>
     <pool-test-while-idle>true</pool-test-while-idle>
     <pool-test-on-borrow>false</pool-test-on-borrow>
+    <connection-properties>${db.connection.properties}</connection-properties>
   </jdbc-datasource>
 </jira-database-config>

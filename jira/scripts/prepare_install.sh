@@ -6,7 +6,7 @@ ATL_GENERATE_SERVER_ID_SCRIPT="print((new com.atlassian.license.DefaultSIDManage
 ATL_TEMP_DIR="/tmp"
 ATL_JIRA_VARFILE="${ATL_TEMP_DIR}/jira.varfile"
 ATL_MSSQL_DRIVER_URL="https://repo1.maven.org/maven2/com/microsoft/sqlserver/mssql-jdbc/7.2.1.jre8/mssql-jdbc-7.2.1.jre8.jar"
-ATL_POSTGRES_DRIVER_URL="https://repo1.maven.org/maven2/org/postgresql/postgresql/42.2.6/postgresql-42.2.6.jar"
+ATL_POSTGRES_DRIVER_URL="https://repo1.maven.org/maven2/org/postgresql/postgresql/42.4.2/postgresql-42.4.2.jar"
 
 
 function atl_log {
@@ -245,6 +245,7 @@ function hydrate_shared_config {
          export DB_USER="$DB_USER@$(echo ${DB_SERVER_NAME} | cut -d '.' -f1)"
          export DB_JDBCURL="jdbc:postgresql://${DB_SERVER_NAME}:${DB_PORT}/${DB_NAME}?ssl=true"
          export DB_USER_LIQUIBASE="${DB_USER}"
+         export DB_CONNECTION_PROPERTIES="tcpKeepAlive=true;socketTimeout=240"
          ;;
      *)
          error "Unsupported DB Type: ${DB_TYPE}"
