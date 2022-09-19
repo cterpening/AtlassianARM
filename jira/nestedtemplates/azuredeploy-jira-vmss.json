@@ -567,7 +567,7 @@
     "resources": [
         {
             "type": "Microsoft.Compute/virtualMachines/extensions",
-            "apiVersion": "2019-12-01",
+            "apiVersion": "2021-04-01",
             "name": "[concat(parameters('jumpboxName'), '/prepare-install-script')]",
             "location": "[parameters('location')]",
             "tags": "[variables('tags')]",
@@ -597,7 +597,7 @@
             "type": "Microsoft.Compute/virtualMachineScaleSets",
             "name": "[variables('jira').cluster.name]",
             "location": "[parameters('location')]",
-            "apiVersion": "2019-12-01",
+            "apiVersion": "2021-04-01",
             "dependsOn": [
                 "[resourceId('Microsoft.Compute/virtualMachines/extensions/', parameters('jumpboxName'), 'prepare-install-script')]"
             ],

@@ -198,7 +198,7 @@
         {
             "name": "[variables('sql').server.name]",
             "type": "Microsoft.Sql/servers",
-            "apiVersion": "2020-02-02-preview",
+            "apiVersion": "2021-11-01",
             "location": "[parameters('location')]",
             "properties": {
                 "administratorLogin": "[variables('sql').server.username]",
@@ -208,7 +208,7 @@
             "resources": [
                 {
                     "type": "databases",
-                    "apiVersion": "2020-02-02-preview",
+                    "apiVersion": "2021-11-01",
                     "name": "[variables('sql').database.name]",
                     "location": "[parameters('location')]",
                     "tags": "[variables('tags')]",
@@ -329,7 +329,7 @@
         {
             "type": "Microsoft.Sql/servers/virtualNetworkRules",
             "name": "[concat(parameters('dbServerName'), '/', parameters('clusterDbAccessNetworkRule'))]",
-            "apiVersion": "2020-02-02-preview",
+            "apiVersion": "2021-11-01",
             "properties": {
                 "virtualNetworkSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets/', parameters('vnetName'), parameters('appSubnetName'))]",
                 "ignoreMissingVnetServiceEndpoint": false
