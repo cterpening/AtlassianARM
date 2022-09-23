@@ -22,7 +22,7 @@
     "resources": [
         {
             "type": "Microsoft.RecoveryServices/vaults",
-            "apiVersion": "2020-02-02",
+            "apiVersion": "2021-11-01",
             "name": "[parameters('vaultName')]",
             "location": "[parameters('location')]",
             "sku": {

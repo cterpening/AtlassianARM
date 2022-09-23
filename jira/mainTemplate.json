@@ -616,7 +616,7 @@
         },
         {
             "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2021-04-01",
             "name": "vpcTemplate",
             "properties": {
                 "mode": "Incremental",
@@ -645,7 +645,7 @@
         },
         {
             "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2021-04-01",
             "name": "jiraTemplate",
             "dependsOn": [
                 "vpcTemplate"
@@ -803,7 +803,7 @@
         },
         {
             "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2021-04-01",
             "name": "domainTemplate",
             "dependsOn": [
                 "jiraTemplate"
@@ -829,7 +829,7 @@
             }
         },
         {
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2021-04-01",
             "name": "alertsTemplate",
             "type": "Microsoft.Resources/deployments",
             "condition": "[parameters('enableEmailAlerts')]",

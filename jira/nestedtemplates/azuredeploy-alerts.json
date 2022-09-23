@@ -117,7 +117,7 @@
         {
             "type": "Microsoft.Insights/actionGroups",
             "name": "[variables('supportTeam').name]",
-            "apiVersion": "2019-06-01",
+            "apiVersion": "2022-04-01",
             "location": "Global",
             "properties": {
                 "groupShortName": "[variables('supportTeam').shortName]",
@@ -259,7 +259,7 @@
         {
             "type": "Microsoft.Insights/webtests",
             "name": "[variables('webTestName')]",
-            "apiVersion": "2018-05-01-preview",
+            "apiVersion": "2022-06-15",
             "location": "[parameters('location')]",
             "condition": "[not(empty(parameters('appInsightsName')))]",
             "tags": {
