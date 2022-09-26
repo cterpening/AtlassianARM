@@ -54,7 +54,7 @@
             "defaultValue": ""
         },
         "sslPfxCertificatePassword": {
-            "type": "string",
+            "type": "securestring",
             "defaultValue": ""
         },
         "workspaceName": {

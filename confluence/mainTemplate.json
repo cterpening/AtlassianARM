@@ -887,10 +887,10 @@
                         "value": "[if(parameters('enableApplicationInsights'), reference('confluenceTemplate').outputs.appInsightsName.value, '')]"
                     },
                     "statusCheckUrl": {
-                        "value": "[concat(if(not(empty(parameters('sslBase64EncodedPfxCertificate'))), concat('https://', if(greater(length(parameters('cname')), 0), reference('domainTemplate').outputs.alias.value, reference('confluenceTemplate').outputs.confAppEndpoint.value)), concat('http://', if(greater(length(parameters('cname')), 0), reference('domainTemplate').outputs.alias.value, reference('confluenceTemplate').outputs.confAppEndpoint.value))), '/status')]"
+                        "value": "[uri(if(not(empty(parameters('sslBase64EncodedPfxCertificate'))), concat('https://', if(greater(length(parameters('cname')), 0), reference('domainTemplate').outputs.alias.value, reference('confluenceTemplate').outputs.confAppEndpoint.value)), concat('http://', if(greater(length(parameters('cname')), 0), reference('domainTemplate').outputs.alias.value, reference('confluenceTemplate').outputs.confAppEndpoint.value))), '/status')]"
                     },
                     "dbType": {
-                        "value": "[if(equals(parameters('dbType'), 'Azure SQL DB'), 'sqlserver', if(equals(parameters('dbType'), 'Azure DB for PostgreSQL'), 'postgres', 'mysql'))]"
+                        "value": "[if(equals(parameters('dbType'), 'Azure SQL DB'), 'sqlserver',  'postgres')]"
                     },
                     "isDbVCoreModel": {
                         "value": "[contains('GeneralPurpose, BusinessCritical', parameters('dbTier'))]"
@@ -916,7 +916,7 @@
         },
         "sshUrl": {
             "type": "string",
-            "value": "[reference('vpcTemplate').outputs.sshUri.value]"
+            "value": "[reference('vpcTemplate').outputs.sshServer.value]"
         },
         "jdbcUrl": {
             "type": "string",
