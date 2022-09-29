@@ -1,5 +1,5 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
         "location": {
@@ -359,7 +359,7 @@
         },
         "jdbcUrl": {
             "type": "string",
-            "value": "[concat('jdbc:sqlserver://', reference(variables('sql').server.name).fullyQualifiedDomainName, ':1433;database=', variables('sql').database.name, ';user=', variables('sql').server.username, '@', variables('sql').server.name, ';password=', variables('sql').server.password)]"
+            "value": "[uri('jdbc:sqlserver://', concat('jdbc:sqlserver://', reference(variables('sql').server.name).fullyQualifiedDomainName, ':1433;database=', variables('sql').database.name, ';user=', variables('sql').server.username, '@', variables('sql').server.name, ';password=', variables('sql').server.password))]"
         }
     }
 }
