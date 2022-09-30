@@ -4,11 +4,14 @@ import sys
 from xml.sax.saxutils import escape
 
 
-def get_parameters(env_variables):
+def get_parameters(env_variables, strict_env_variables):
   parameters = {}
   for env_var in env_variables:
     ev_key = env_var.lower().replace('_', '.')
-    ev_value = environ.get(env_var, '')
+    default_value = None
+    if strict_env_variables.__contains__(env_var):
+      default_value = ''
+    ev_value = environ.get(env_var, default_value)
     parameters[ev_key] = ev_value
   return parameters
 
@@ -20,7 +23,7 @@ def process_line(pattern, line, parameters):
 
   for parameter in matches:
     substitution = parameters.get(parameter, None)
-    if substitution:
+    if substitution is not None:
       line = line.replace('${%s}' % parameter, escape(substitution))
 
   return line
@@ -38,6 +41,7 @@ def main():
       'DB_TYPE',
       'DB_JDBCURL',
       'DB_DRIVER_CLASS',
+      'DB_CONNECTION_PROPERTIES',
       'DB_CONFIG_TYPE'
   ]
 
@@ -84,7 +88,11 @@ def main():
     misc_env_variables
   )
 
-  parameters = get_parameters(env_variables)
+  strict_env_variables = [
+    'DB_CONNECTION_PROPERTIES'
+  ]
+
+  parameters = get_parameters(env_variables, strict_env_variables)
   parameter_pattern = re.compile(r"\$\{([a-zA-Z0-9\.]*)\}")
 
   for line in sys.stdin:
