@@ -191,7 +191,7 @@
                         "imageReference": {
                             "publisher": "Canonical",
                             "offer": "UbuntuServer",
-                            "sku": "18.04-LTS"
+                            "sku": "22.04-LTS"
                         },
                         "count": 1,
                         "visible": "[equals('trial', steps('administrator').confClusterSize)]"
@@ -261,7 +261,7 @@
                         "imageReference": {
                             "publisher": "Canonical",
                             "offer": "UbuntuServer",
-                            "sku": "18.04-LTS"
+                            "sku": "22.04-LTS"
                         },
                         "count": 2,
                         "visible": "[equals('small', steps('administrator').confClusterSize)]"
@@ -333,7 +333,7 @@
                         "imageReference": {
                             "publisher": "Canonical",
                             "offer": "UbuntuServer",
-                            "sku": "18.04-LTS"
+                            "sku": "22.04-LTS"
                         },
                         "count": 3,
                         "visible": "[equals('medium', steps('administrator').confClusterSize)]"
@@ -425,7 +425,7 @@
                         "imageReference": {
                             "publisher": "Canonical",
                             "offer": "UbuntuServer",
-                            "sku": "18.04-LTS"
+                            "sku": "22.04-LTS"
                         },
                         "count": 6,
                         "visible": "[equals('large', steps('administrator').confClusterSize)]"
@@ -510,7 +510,7 @@
                         "imageReference": {
                             "publisher": "Canonical",
                             "offer": "UbuntuServer",
-                            "sku": "18.04-LTS"
+                            "sku": "22.04-LTS"
                         },
                         "count": 6,
                         "visible": "[equals('enterprise', steps('administrator').confClusterSize)]"

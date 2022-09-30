@@ -525,7 +525,6 @@
         "namespace": "jira",
         "dbServerName": "[concat(variables('namespace'), if(equals(parameters('dbType'),'Azure SQL DB'),'sqlserver','postgres'), uniqueString(resourceGroup().id))]",
         "isJiraProduct": "[equals(parameters('jiraProduct'), 'jira-software')]",
-        "customerUsageId": "[if(variables('isJiraProduct'), 'a717b299-5535-534f-aecb-a702a63c94bd', '225d520e-9e13-5706-b071-0df518243a2c')]",
         "isJiraClusterSizeUsed": "[not(empty(parameters('jiraClusterSize')))]",
         "clusterLookup": {
             "appGtwyTier": {
@@ -679,7 +678,7 @@
                         "value": "[if(parameters('dbCreateNew'), variables('dbServerName'), parameters('dbHost'))]"
                     },
                     "dbType": {
-                        "value": "[if(equals(parameters('dbType'), 'Azure SQL DB'), 'sqlserver', if(equals(parameters('dbType'), 'Azure DB for PostgreSQL'), 'postgres', 'mysql'))]"
+                        "value": "[if(equals(parameters('dbType'), 'Azure SQL DB'), 'sqlserver', 'postgres')]"
                     },
                     "dbPort": {
                         "value": "[if(parameters('dbCreateNew'), if(equals(parameters('dbType'), 'Azure SQL DB'), '1433', '5432'), parameters('dbPort'))]"
@@ -862,10 +861,10 @@
                         "value": "[reference('jiraTemplate').outputs.appInsightsName.value]"
                     },
                     "statusCheckUrl": {
-                        "value": "[concat(if(not(empty(parameters('sslBase64EncodedPfxCertificate'))), concat('https://', if(greater(length(parameters('cname')), 0), reference('domainTemplate').outputs.alias.value, reference('jiraTemplate').outputs.jiraAppEndpoint.value)), concat('http://', if(greater(length(parameters('cname')), 0), reference('domainTemplate').outputs.alias.value, reference('jiraTemplate').outputs.jiraAppEndpoint.value))), '/status')]"
+                        "value": "[uri(if(not(empty(parameters('sslBase64EncodedPfxCertificate'))), concat('https://', if(greater(length(parameters('cname')), 0), reference('domainTemplate').outputs.alias.value, reference('jiraTemplate').outputs.jiraAppEndpoint.value)), concat('http://', if(greater(length(parameters('cname')), 0), reference('domainTemplate').outputs.alias.value, reference('jiraTemplate').outputs.jiraAppEndpoint.value))), '/status')]"
                     },
                     "dbType": {
-                        "value": "[if(equals(parameters('dbType'), 'Azure SQL DB'), 'sqlserver', if(equals(parameters('dbType'), 'Azure DB for PostgreSQL'), 'postgres', 'mysql'))]"
+                        "value": "[if(equals(parameters('dbType'), 'Azure SQL DB'), 'sqlserver', 'postgres')]"
                     },
                     "isDbVCoreModel": {
                         "value": "[contains('GeneralPurpose, BusinessCritical', parameters('dbTier'))]"
@@ -891,7 +890,7 @@
         },
         "sshUrl": {
             "type": "string",
-            "value": "[reference('vpcTemplate').outputs.sshUri.value]"
+            "value": "[reference('vpcTemplate').outputs.sshServer.value]"
         },
         "jdbcUrl": {
             "type": "string",

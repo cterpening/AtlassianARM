@@ -31,8 +31,7 @@
             "type": "string",
             "allowedValues": [
                 "sqlserver",
-                "postgres",
-                "mysql"
+                "postgres"
             ],
             "defaultValue": "sqlserver"
         },
@@ -228,7 +227,7 @@
         {
             "type": "Microsoft.Insights/webtests",
             "name": "[variables('webTestName')]",
-            "apiVersion": "2018-05-01-preview",
+            "apiVersion": "2022-06-15",
             "location": "[parameters('location')]",
             "condition": "[not(empty(parameters('appInsightsName')))]",
             "tags": {

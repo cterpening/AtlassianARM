@@ -49,8 +49,7 @@
             "type": "string",
             "allowedValues": [
                 "sqlserver",
-                "postgres",
-                "mysql"
+                "postgres"
             ],
             "defaultValue": "sqlserver",
             "metadata": {

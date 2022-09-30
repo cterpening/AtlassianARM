@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
     "location": {
@@ -246,7 +246,7 @@
     },
     "jdbcUrl": {
       "type": "string",
-      "value": "[concat('jdbc:postgresql://', reference(variables('postgresql').server.name).fullyQualifiedDomainName, ':5432;/', variables('postgresql').database.name, '?user=', variables('postgresql').server.username, '@', variables('postgresql').server.name, '?password=', variables('postgresql').server.password, '?ssl=true')]"
+      "value": "[uri('jdbc:postgresql://', concat('jdbc:postgresql://', reference(variables('postgresql').server.name).fullyQualifiedDomainName, ':5432;/', variables('postgresql').database.name, '?user=', variables('postgresql').server.username, '@', variables('postgresql').server.name, '?password=', variables('postgresql').server.password, '?ssl=true'))]"
     }
   }
 }
