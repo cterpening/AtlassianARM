@@ -359,7 +359,7 @@
         },
         "jdbcUrl": {
             "type": "string",
-            "value": "[concat('jdbc:sqlserver://', reference(variables('sql').server.name).fullyQualifiedDomainName, ':1433;database=', variables('sql').database.name, ';user=', variables('sql').server.username, '@', variables('sql').server.name, ';password=', variables('sql').server.password)]"
+            "value": "[uri('jdbc:sqlserver://', concat('jdbc:sqlserver://', reference(variables('sql').server.name).fullyQualifiedDomainName, ':1433;database=', variables('sql').database.name, ';user=', variables('sql').server.username, '@', variables('sql').server.name, ';password=', variables('sql').server.password))]"
         }
     }
 }
