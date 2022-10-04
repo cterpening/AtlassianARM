@@ -252,7 +252,7 @@
     },
     "jdbcUrl": {
       "type": "string",
-      "value": "[concat('jdbc:postgresql://', reference(variables('postgresql').server.name).fullyQualifiedDomainName, ':5432;/', variables('postgresql').database.name, '?user=', variables('postgresql').server.username, '@', variables('postgresql').server.name, '?password=', variables('postgresql').server.password, '?ssl=true')]"
+      "value": "[uri('jdbc:postgresql://', concat('jdbc:postgresql://', reference(variables('postgresql').server.name).fullyQualifiedDomainName, ':5432;/', variables('postgresql').database.name, '?user=', variables('postgresql').server.username, '@', variables('postgresql').server.name, '?password=', variables('postgresql').server.password, '?ssl=true'))]"
     }
   }
 }

@@ -133,7 +133,7 @@
 						"imageReference": {
 							"publisher": "Canonical",
 							"offer": "UbuntuServer",
-							"sku": "18.04-LTS"
+							"sku": "22.04-LTS"
 						},
 						"count": 1,
 						"visible": "[equals('trial', steps('administrator').crowdClusterSize)]"
@@ -203,7 +203,7 @@
 						"imageReference": {
 							"publisher": "Canonical",
 							"offer": "UbuntuServer",
-							"sku": "18.04-LTS"
+							"sku": "22.04-LTS"
 						},
 						"count": 1,
 						"visible": "[equals('small', steps('administrator').crowdClusterSize)]"
@@ -275,7 +275,7 @@
 						"imageReference": {
 							"publisher": "Canonical",
 							"offer": "UbuntuServer",
-							"sku": "18.04-LTS"
+							"sku": "22.04-LTS"
 						},
 						"count": 1,
 						"visible": "[equals('medium', steps('administrator').crowdClusterSize)]"
@@ -367,7 +367,7 @@
 						"imageReference": {
 							"publisher": "Canonical",
 							"offer": "UbuntuServer",
-							"sku": "18.04-LTS"
+							"sku": "22.04-LTS"
 						},
 						"count": 1,
 						"visible": "[equals('large', steps('administrator').crowdClusterSize)]"
@@ -452,7 +452,7 @@
 						"imageReference": {
 							"publisher": "Canonical",
 							"offer": "UbuntuServer",
-							"sku": "18.04-LTS"
+							"sku": "22.04-LTS"
 						},
 						"count": 1,
 						"visible": "[equals('enterprise', steps('administrator').crowdClusterSize)]"
