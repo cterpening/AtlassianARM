@@ -9,13 +9,62 @@ function ensure_atlhome {
     log "Atlassian home has been created"
 }
 
+function define_supported_git_version {
+BITBUCKET_MINOR_VERSION=$(echo "${BBS_VERSION}" | cut -d. -f-2)
+
+case ${BITBUCKET_MINOR_VERSION} in
+    6.0)  SUPPORTED_GIT_VERSION="2.20" ;;
+    6.1)  SUPPORTED_GIT_VERSION="2.20" ;;
+    6.1)  SUPPORTED_GIT_VERSION="2.20" ;;
+    6.2)  SUPPORTED_GIT_VERSION="2.21" ;;
+    6.3)  SUPPORTED_GIT_VERSION="2.21" ;;
+    6.4)  SUPPORTED_GIT_VERSION="2.22" ;;
+    6.5)  SUPPORTED_GIT_VERSION="2.22" ;;
+    6.6)  SUPPORTED_GIT_VERSION="2.23" ;;
+    6.7)  SUPPORTED_GIT_VERSION="2.23" ;;
+    6.8)  SUPPORTED_GIT_VERSION="2.24" ;;
+    6.9)  SUPPORTED_GIT_VERSION="2.24" ;;
+    6.10) SUPPORTED_GIT_VERSION="2.24" ;;
+    7.0)  SUPPORTED_GIT_VERSION="2.25" ;;
+    7.1)  SUPPORTED_GIT_VERSION="2.25" ;;
+    7.2)  SUPPORTED_GIT_VERSION="2.26" ;;
+    7.3)  SUPPORTED_GIT_VERSION="2.27" ;;
+    7.4)  SUPPORTED_GIT_VERSION="2.27" ;;
+    7.5)  SUPPORTED_GIT_VERSION="2.28" ;;
+    7.6)  SUPPORTED_GIT_VERSION="2.28" ;;
+    7.7)  SUPPORTED_GIT_VERSION="2.29" ;;
+    7.8)  SUPPORTED_GIT_VERSION="2.29" ;;
+    7.9)  SUPPORTED_GIT_VERSION="2.30" ;;
+    7.10) SUPPORTED_GIT_VERSION="2.30" ;;
+    7.11) SUPPORTED_GIT_VERSION="2.30" ;;
+    7.12) SUPPORTED_GIT_VERSION="2.31" ;;
+    7.13) SUPPORTED_GIT_VERSION="2.31" ;;
+    7.14) SUPPORTED_GIT_VERSION="2.32" ;;
+    7.15) SUPPORTED_GIT_VERSION="2.32" ;;
+    7.16) SUPPORTED_GIT_VERSION="2.33" ;;
+    7.17) SUPPORTED_GIT_VERSION="2.33" ;;
+    7.18) SUPPORTED_GIT_VERSION="2.33" ;;
+    7.19) SUPPORTED_GIT_VERSION="2.34" ;;
+    7.20) SUPPORTED_GIT_VERSION="2.34" ;;
+    7.21) SUPPORTED_GIT_VERSION="2.35" ;;
+    8.0)  SUPPORTED_GIT_VERSION="2.36" ;;
+    8.1)  SUPPORTED_GIT_VERSION="2.36" ;;
+    8.2)  SUPPORTED_GIT_VERSION="2.36" ;;
+    8.3)  SUPPORTED_GIT_VERSION="2.37" ;;
+      *)  SUPPORTED_GIT_VERSION="2.37" ;;
+esac
+
+}
+
 function ensure_prerequisites {
     IS_REDHAT=$(cat /etc/os-release | egrep '^ID' | grep rhel)
+    SOURCE_DIR="/git_source"
+    DIST_DIR="/usr"
     update_rhel_client_cert
     install_pacapt
     install_redhat_epel_if_needed
     install_core_dependencies
-
+    define_supported_git_version
     ensure_atlhome
 }
 
@@ -199,21 +248,37 @@ function bbs_install_nfs_client {
     log "Done installing NFS client"
 }
 
-function install_latest_git {
-
+function install_git {
 
     if [[ -n ${IS_REDHAT} ]]
     then
-      log "Install latest git 2.24.2 from IUS"
-	    pacapt install --noconfirm git224
+      log "Install appropriate version of git from IUS"
+      BITBUCKET_MAJOR_VERSION=$(echo "${BBS_VERSION}" | cut -d. -f-1)
+      if [ "${BITBUCKET_MAJOR_VERSION}" -lt 8 ]
+      then
+        yum install -y git224
+      else
+        yum install -y git236
+      fi
     else
-      log "Install latest version of git from PPA"
-    	apt-add-repository -y ppa:git-core/ppa
-	    pacapt update --noconfirm
-	    pacapt install --noconfirm git
+      log "Install appropriate version of git from Git Kernel"
+      apt-get update
+      apt-get install -y --no-install-recommends git dh-autoreconf libcurl4-gnutls-dev libexpat1-dev libssl-dev make zlib1g-dev
+      GIT_VERSION=$(git ls-remote git://git.kernel.org/pub/scm/git/git.git | cut -c53- | grep "^${SUPPORTED_GIT_VERSION}\.[0-9\.]\+$" | sort -V | tail -n 1)
+      curl -s -o - "https://git.kernel.org/pub/scm/git/git.git/snapshot/git-${GIT_VERSION}.tar.gz" | tar -xz --strip-components=1 --one-top-level="${SOURCE_DIR}"
+      cd "${SOURCE_DIR}"
+      apt-get purge -y git
+      make configure
+      ./configure --prefix=${DIST_DIR}
+      make -j`nproc` NO_TCLTK=1 NO_GETTEXT=1 install
+      cd /
+      rm -rf ${SOURCE_DIR}
+      apt-get purge -y dh-autoreconf
+      apt-get clean autoclean
+      apt-get autoremove -y
     fi
 
-    log "Latest version of git has been installed"
+    log "Appropriate version of git has been installed"
 }
 
 function bbs_create_installer_dir {
@@ -648,7 +713,7 @@ function install_bbs {
     log "Configuring Bitbucket Server node..."
 
     install_common
-    install_latest_git
+    install_git
     bbs_install_nfs_client
     bbs_configure_shared_home
     bbs_configure_installer_dir
