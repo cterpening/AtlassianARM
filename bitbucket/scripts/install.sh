@@ -248,20 +248,7 @@ function bbs_install_nfs_client {
     log "Done installing NFS client"
 }
 
-function install_git {
-
-    if [[ -n ${IS_REDHAT} ]]
-    then
-      log "Install appropriate version of git from IUS"
-      BITBUCKET_MAJOR_VERSION=$(echo "${BBS_VERSION}" | cut -d. -f-1)
-      if [ "${BITBUCKET_MAJOR_VERSION}" -lt 8 ]
-      then
-        yum install -y git224
-      else
-        yum install -y git236
-      fi
-    else
-      log "Install appropriate version of git from Git Kernel"
+function install_appropriate_git_version_ubuntu {
       apt-get update
       apt-get install -y --no-install-recommends git dh-autoreconf libcurl4-gnutls-dev libexpat1-dev libssl-dev make zlib1g-dev
       GIT_VERSION=$(git ls-remote git://git.kernel.org/pub/scm/git/git.git | cut -c53- | grep "^${SUPPORTED_GIT_VERSION}\.[0-9\.]\+$" | sort -V | tail -n 1)
@@ -276,6 +263,25 @@ function install_git {
       apt-get purge -y dh-autoreconf
       apt-get clean autoclean
       apt-get autoremove -y
+}
+
+
+function install_git {
+
+    if [[ -n ${IS_REDHAT} ]]
+    then
+      log "Install appropriate version of git from IUS"
+      BITBUCKET_MAJOR_VERSION=$(echo "${BBS_VERSION}" | cut -d. -f-1)
+      BITBUCKET_WITH_NEW_GIT_VERSION=8
+      if [ "${BITBUCKET_MAJOR_VERSION}" -lt "${BITBUCKET_WITH_NEW_GIT_VERSION}" ]
+      then
+        yum install -y git224
+      else
+        yum install -y git236
+      fi
+    else
+      log "Install appropriate version of git from Git Kernel"
+      install_appropriate_git_version_ubuntu
     fi
 
     log "Appropriate version of git has been installed"
