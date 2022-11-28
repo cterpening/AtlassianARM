@@ -908,7 +908,7 @@
                         "value": "[if(parameters('enableApplicationInsights'), reference('bitbucketTemplate').outputs.appInsightsName.value, '')]"
                     },
                     "statusCheckUrl": {
-                        "value": "[concat(if(not(empty(parameters('sslBase64EncodedPfxCertificate'))), concat('https://', if(greater(length(parameters('cname')), 0), reference('domainTemplate').outputs.alias.value, reference('bitbucketTemplate').outputs.appEndpoint.value)), concat('http://', if(greater(length(parameters('cname')), 0), reference('domainTemplate').outputs.alias.value, reference('bitbucketTemplate').outputs.appEndpoint.value))), '/status')]"
+                        "value": "[uri(if(not(empty(parameters('sslBase64EncodedPfxCertificate'))), if(greater(length(parameters('cname')), 0), reference('domainTemplate').outputs.alias.value, reference('bitbucketTemplate').outputs.appEndpoint.value), if(greater(length(parameters('cname')), 0), reference('domainTemplate').outputs.alias.value, reference('bitbucketTemplate').outputs.appEndpoint.value)), '/status')]"
                     },
                     "dbType": {
                         "value": "[if(equals(parameters('dbType'), 'Azure SQL DB'), 'sqlserver', if(equals(parameters('dbType'), 'Azure DB for PostgreSQL'), 'postgres', 'mysql'))]"
