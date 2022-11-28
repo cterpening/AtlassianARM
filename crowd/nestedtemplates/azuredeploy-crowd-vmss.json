@@ -322,7 +322,7 @@
         "isMsSql": "[equals(parameters('dbType'), 'sqlserver')]",
         "crowd": {
             "database": {
-                "uri": "[if(variables('isMsSql'), concat(parameters('dbHost'), '.', 'database', '.', 'windows', '.', 'net'), concat(parameters('dbHost'), '.', 'postgres', '.', 'database', '.', 'azure', '.', 'com'))]"
+                "host": "[if(variables('isMsSql'), concat(parameters('dbHost'), '.database', '.windows.net'), concat(parameters('dbHost'), '.postgres.database.azure.com'))]"
             },
             "cluster": {
                 "name": "[concat(variables('namespace'), 'cluster')]",
@@ -493,7 +493,7 @@
                 },
                 {
                     "name": "ATL_DB_HOST",
-                    "value": "[variables('crowd').database.uri]"
+                    "value": "[variables('crowd').database.host]"
                 },
                 {
                     "name": "ATL_DB_ROOT_USER",

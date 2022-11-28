@@ -603,7 +603,7 @@
             "type": "Microsoft.OperationalInsights/workspaces",
             "name": "[variables('workspace').name]",
             "condition": "[parameters('enableAnalytics')]",
-            "apiVersion": "2020-08-01",
+            "apiVersion": "2021-06-01",
             "location": "[parameters('location')]",
             "properties": {
                 "sku": {

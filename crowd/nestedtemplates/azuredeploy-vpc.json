@@ -362,7 +362,7 @@
             "type": "string",
             "value": "[variables('jumpbox').ip.name]"
         },
-        "sshUri": {
+        "sshServer": {
             "type": "string",
             "value": "[concat('ssh ', variables('jumpbox').vm.user, '@', reference(variables('jumpbox').ip.name).dnsSettings.fqdn)]"
         }

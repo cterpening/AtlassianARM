@@ -6,8 +6,7 @@
             "type": "string",
             "allowedValues": [
                 "sqlserver",
-                "postgres",
-                "mysql"
+                "postgres"
             ],
             "defaultValue": "sqlserver",
             "metadata": {
@@ -69,8 +68,8 @@
         "dbName": "[split(parameters('dbServerName'),'.')[0]]",
          "isMsSql": "[equals(parameters('dbType'), 'sqlserver')]",
         "dbFullName": "[if(variables('isMsSql'), concat(variables('dbName'), '.', 'database', '.', 'windows', '.', 'net'), concat(variables('dbName'), '.', 'postgres', '.', 'database', '.', 'azure', '.', 'com'))]",
-        "mssqlJdbcUrl": "[concat('jdbc:', variables('dbFullName'), '://', parameters('dbServerName'), ':', parameters('dbPort'), ';database=', parameters('dbDatabaseName'), ';user=', parameters('dbUsername'), '@', split(parameters('dbServerName'),'.')[0], ';password=', parameters('dbPassword'))]",
-        "postgresJdbcUrl": "[concat('jdbc:postgresql://', variables('dbFullName'), ':', parameters('dbPort'), '/', parameters('dbDatabaseName'), '?user=', parameters('dbUsername'), '@', split(parameters('dbServerName'),'.')[0], '&password=', parameters('dbPassword'), '&ssl=true')]"
+        "mssqlJdbcUrl": "[uri('jdbc:sqlserver://', concat(parameters('dbServerName'), ':', parameters('dbPort'), ';database=', parameters('dbDatabaseName'), ';user=', parameters('dbUsername'), '@', split(parameters('dbServerName'),'.')[0], ';password=', parameters('dbPassword')))]",
+        "postgresJdbcUrl": "[uri('jdbc:postgresql://', concat(variables('dbFullName'), ':', parameters('dbPort'), '/', parameters('dbDatabaseName'), '?user=', parameters('dbUsername'), '@', split(parameters('dbServerName'),'.')[0], '&password=', parameters('dbPassword'), '&ssl=true'))]"
     },
     "resources": [
         {
