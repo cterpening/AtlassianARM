@@ -392,10 +392,11 @@
         },
         "postgresDbVersion": {
             "type": "string",
-            "defaultValue": "9.6",
+            "defaultValue": "11",
             "allowedValues": [
                 "9.6",
-                "10"
+                "10",
+                "11"
             ],
             "metadata": {
                 "description": "The PostgresSQL DB version to use."
