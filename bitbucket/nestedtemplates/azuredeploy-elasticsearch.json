@@ -163,7 +163,7 @@
     "variables": {
         "esLoadBalancerTemplateUri": "[uri(parameters('_artifactsLocation'), concat('nestedtemplates/third-party/loadbalancers/internal-lb-resources.json', parameters('_artifactsLocationSasToken')))]",
         "esUbuntuNodeTemplateUri": "[uri(parameters('_artifactsLocation'), concat('nestedtemplates/third-party/settings/ubuntuSettings.json', parameters('_artifactsLocationSasToken')))]",
-        "version": "6.5.3",
+        "version": "6.8.23",
         "password": {
             "type": "securestring",
             "defaultValue": "generate",
