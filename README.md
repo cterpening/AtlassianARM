@@ -1,5 +1,9 @@
 # Atlassian Data Center Azure Templates
 
+
+## Project Closure Notice 
+This repository has been closed due to the End of Life (EOL) of Azure Deployments.
+
 ## Purpose
 This repository contains Azure ARM templates to install the following [Atlassian Data Center](https://www.atlassian.com/enterprise/data-center) products:  
 
